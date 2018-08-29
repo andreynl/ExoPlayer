@@ -203,7 +203,7 @@ public class MediaCodecAudioRenderer extends MediaCodecRenderer implements Media
         playClearSamplesWithoutKeys,
         eventHandler,
         eventListener,
-        new DefaultAudioSink(audioCapabilities, audioProcessors));
+        new DefaultAudioSink(audioCapabilities, audioProcessors, true));
   }
 
   /**

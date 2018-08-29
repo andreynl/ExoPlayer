@@ -313,7 +313,7 @@ public final class DefaultAudioSink implements AudioSink {
       boolean enableConvertHighResIntPcmToFloat) {
     this(
         audioCapabilities,
-        new DefaultAudioProcessorChain(audioProcessors),
+        new MinimalAudioProcessorChain(audioProcessors),
         enableConvertHighResIntPcmToFloat);
   }
 
@@ -350,7 +350,7 @@ public final class DefaultAudioSink implements AudioSink {
     Collections.addAll(toIntPcmAudioProcessors, audioProcessorChain.getAudioProcessors());
     toIntPcmAvailableAudioProcessors =
         toIntPcmAudioProcessors.toArray(new AudioProcessor[toIntPcmAudioProcessors.size()]);
-    toFloatPcmAvailableAudioProcessors = new AudioProcessor[] {new FloatResamplingAudioProcessor()};
+    toFloatPcmAvailableAudioProcessors = new AudioProcessor[] {audioProcessorChain.getAudioProcessors()[0]};
     volume = 1.0f;
     startMediaTimeState = START_NOT_SET;
     audioAttributes = AudioAttributes.DEFAULT;
