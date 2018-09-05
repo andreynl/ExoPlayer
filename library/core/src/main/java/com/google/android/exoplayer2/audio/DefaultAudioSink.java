@@ -350,7 +350,14 @@ public final class DefaultAudioSink implements AudioSink {
     Collections.addAll(toIntPcmAudioProcessors, audioProcessorChain.getAudioProcessors());
     toIntPcmAvailableAudioProcessors =
         toIntPcmAudioProcessors.toArray(new AudioProcessor[toIntPcmAudioProcessors.size()]);
-    toFloatPcmAvailableAudioProcessors = new AudioProcessor[] {audioProcessorChain.getAudioProcessors()[0]};
+
+    AudioProcessor[] audioProcessors = audioProcessorChain.getAudioProcessors();
+    if (audioProcessors.length > 0) {
+      toFloatPcmAvailableAudioProcessors = new AudioProcessor[]{audioProcessors[0]};
+    } else {
+      toFloatPcmAvailableAudioProcessors = new AudioProcessor[]{new FloatResamplingAudioProcessor()};
+    }
+
     volume = 1.0f;
     startMediaTimeState = START_NOT_SET;
     audioAttributes = AudioAttributes.DEFAULT;
